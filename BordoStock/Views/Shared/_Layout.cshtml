@@ -1,1 +1,35 @@
-<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>@ViewData["Title"] - BordoStock</title><link rel="stylesheet" href="~/css/site.css"/></head><body><aside class="sidebar"><div class="brand">BORDO<span>STOCK</span></div><div class="menu-title">YÖNETİM</div><nav><a asp-controller="Home" asp-action="Index">⌂ <span>Dashboard</span></a><a asp-controller="Products" asp-action="Index">▦ <span>Ürünler</span></a><a asp-controller="Categories" asp-action="Index">◈ <span>Kategoriler</span></a><a asp-controller="Suppliers" asp-action="Index">♧ <span>Tedarikçiler</span></a><a asp-controller="Warehouses" asp-action="Index">⌂ <span>Depolar</span></a><a asp-controller="StockMovements" asp-action="Index">↕ <span>Stok Hareketleri</span></a></nav></aside><div class="main-content"><header class="topbar"><div><span class="eyebrow">BORDOSTOCK YÖNETİM</span><h1>@ViewData["Title"]</h1></div><div class="top-actions"><span class="user-name">@User.Identity?.Name</span><form asp-controller="Account" asp-action="Logout" method="post"><button class="logout" type="submit">Çıkış</button></form></div></header><main class="content">@RenderBody()</main></div></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BordoStock</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">BORDO<span>STOCK</span></div>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a asp-controller="Products" asp-action="Index">Ürünler</a>
+            <a asp-controller="Categories" asp-action="Index">Kategoriler</a>
+            <a asp-controller="Suppliers" asp-action="Index">Tedarikçiler</a>
+            <a asp-controller="Warehouses" asp-action="Index">Depolar</a>
+            <a asp-controller="StockMovements" asp-action="Index">Stok Hareketleri</a>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">BORDOSTOCK YÖNETİM</span>
+                <h1>@ViewData["Title"]</h1>
+            </div>
+        </header>
+
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+</body>
+</html>
