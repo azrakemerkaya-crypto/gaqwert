@@ -1,0 +1,5 @@
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = null;
+}
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BordoStock | Giriş</title><link rel="stylesheet" href="~/css/site.css"></head><body class="login-page"><div class="login-card"><div class="login-logo">BORDO<span>STOCK</span></div><p class="login-subtitle">Stok yönetim paneline hoş geldiniz</p><form asp-action="Login" method="post"><div asp-validation-summary="ModelOnly" class="validation"></div><label>E-posta</label><input class="form-control" type="email" name="email" required placeholder="admin@bordostock.com"><label>Şifre</label><input class="form-control" type="password" name="password" required placeholder="••••••••"><button class="btn-primary full" type="submit">Giriş Yap</button></form><small>Demo: admin@bordostock.com / admin123</small></div></body></html>

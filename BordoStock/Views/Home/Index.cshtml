@@ -1,48 +1,5 @@
 @model List<BordoStock.Models.StockMovement>
-
-@{
-    ViewData["Title"] = "Dashboard";
-}
-
-<div class="dashboard-grid">
-    <div class="stat-card">
-        <span class="label">Toplam Ürün</span>
-        <h3>@ViewBag.TotalProducts</h3>
-    </div>
-
-    <div class="stat-card">
-        <span class="label">Toplam Stok</span>
-        <h3>@ViewBag.TotalStock</h3>
-    </div>
-
-    <div class="stat-card">
-        <span class="label">Kritik Stok</span>
-        <h3>@ViewBag.LowStockProducts</h3>
-    </div>
-</div>
-
-<div class="panel">
-    <h3>Son Stok Hareketleri</h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Ürün</th>
-                <th>Tür</th>
-                <th>Miktar</th>
-                <th>Tarih</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Product?.Name</td>
-                    <td>@item.MovementType</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.MovementDate.ToString("dd.MM.yyyy")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@{ ViewData["Title"] = "Dashboard"; }
+<div class="welcome"><div><span class="eyebrow">GENEL BAKIŞ</span><h2>Hoş geldin, @User.Identity?.Name</h2><p>Stok operasyonlarını tek panelden kontrol et.</p></div><a asp-controller="Products" asp-action="Create" class="btn-primary">+ Yeni Ürün</a></div>
+<div class="dashboard-grid"><div class="stat-card"><span class="label">Toplam Ürün</span><h3>@ViewBag.TotalProducts</h3><span class="stat-icon">▦</span></div><div class="stat-card"><span class="label">Toplam Stok</span><h3>@ViewBag.TotalStock</h3><span class="stat-icon">▥</span></div><div class="stat-card warning"><span class="label">Kritik Stok</span><h3>@ViewBag.LowStockProducts</h3><span class="stat-icon">!</span></div><div class="stat-card"><span class="label">Stok Değeri</span><h3>@(((decimal)ViewBag.StockValue).ToString("N0")) ₺</h3><span class="stat-icon">₺</span></div></div>
+<div class="panel"><div class="panel-heading"><h3>Son Stok Hareketleri</h3><a asp-controller="StockMovements" asp-action="Index">Tümünü gör →</a></div><div class="table-wrap"><table class="table"><thead><tr><th>Ürün</th><th>Depo</th><th>Tür</th><th>Miktar</th><th>Tarih</th></tr></thead><tbody>@foreach (var item in Model){<tr><td><strong>@item.Product?.Name</strong></td><td>@item.Warehouse?.Name</td><td><span class="badge @(item.MovementType == "In" ? "in" : "out")">@(item.MovementType == "In" ? "Giriş" : "Çıkış")</span></td><td>@item.Quantity</td><td>@item.MovementDate.ToString("dd.MM.yyyy HH:mm")</td></tr>}</tbody></table></div></div>

@@ -5,42 +5,25 @@ namespace BordoStock.Data;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Category> Categories { get; set; }
-    public DbSet<Supplier> Suppliers { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Warehouse> Warehouses { get; set; }
-    public DbSet<StockMovement> StockMovements { get; set; }
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Supplier> Suppliers => Set<Supplier>();
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<Warehouse> Warehouses => Set<Warehouse>();
+    public DbSet<StockMovement> StockMovements => Set<StockMovement>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Product>()
-            .Property(p => p.PurchasePrice)
-            .HasColumnType("decimal(18,2)");
-
-        modelBuilder.Entity<Product>()
-            .Property(p => p.SalePrice)
-            .HasColumnType("decimal(18,2)");
-
-        modelBuilder.Entity<StockMovement>()
-            .Property(p => p.UnitPrice)
-            .HasColumnType("decimal(18,2)");
-
-        modelBuilder.Entity<Category>()
-            .HasIndex(c => c.Name)
-            .IsUnique();
-
-        modelBuilder.Entity<Supplier>()
-            .HasIndex(s => s.CompanyName)
-            .IsUnique();
-
-        modelBuilder.Entity<Product>()
-            .HasIndex(p => p.Code)
-            .IsUnique();
+        modelBuilder.Entity<Product>().Property(p => p.PurchasePrice).HasColumnType("decimal(18,2)");
+        modelBuilder.Entity<Product>().Property(p => p.SalePrice).HasColumnType("decimal(18,2)");
+        modelBuilder.Entity<StockMovement>().Property(p => p.UnitPrice).HasColumnType("decimal(18,2)");
+        modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+        modelBuilder.Entity<Supplier>().HasIndex(s => s.CompanyName).IsUnique();
+        modelBuilder.Entity<Product>().HasIndex(p => p.Code).IsUnique();
+        modelBuilder.Entity<Warehouse>().HasIndex(w => w.Name).IsUnique();
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
     }
 }
