@@ -1,5 +1,43 @@
 @model List<BordoStock.Models.StockMovement>
-@{ ViewData["Title"] = "Dashboard"; }
-<div class="welcome"><div><span class="eyebrow">GENEL BAKIŞ</span><h2>Hoş geldin, @User.Identity?.Name</h2><p>Stok operasyonlarını tek panelden kontrol et.</p></div><a asp-controller="Products" asp-action="Create" class="btn-primary">+ Yeni Ürün</a></div>
-<div class="dashboard-grid"><div class="stat-card"><span class="label">Toplam Ürün</span><h3>@ViewBag.TotalProducts</h3><span class="stat-icon">▦</span></div><div class="stat-card"><span class="label">Toplam Stok</span><h3>@ViewBag.TotalStock</h3><span class="stat-icon">▥</span></div><div class="stat-card warning"><span class="label">Kritik Stok</span><h3>@ViewBag.LowStockProducts</h3><span class="stat-icon">!</span></div><div class="stat-card"><span class="label">Stok Değeri</span><h3>@(((decimal)ViewBag.StockValue).ToString("N0")) ₺</h3><span class="stat-icon">₺</span></div></div>
-<div class="panel"><div class="panel-heading"><h3>Son Stok Hareketleri</h3><a asp-controller="StockMovements" asp-action="Index">Tümünü gör →</a></div><div class="table-wrap"><table class="table"><thead><tr><th>Ürün</th><th>Depo</th><th>Tür</th><th>Miktar</th><th>Tarih</th></tr></thead><tbody>@foreach (var item in Model){<tr><td><strong>@item.Product?.Name</strong></td><td>@item.Warehouse?.Name</td><td><span class="badge @(item.MovementType == "In" ? "in" : "out")">@(item.MovementType == "In" ? "Giriş" : "Çıkış")</span></td><td>@item.Quantity</td><td>@item.MovementDate.ToString("dd.MM.yyyy HH:mm")</td></tr>}</tbody></table></div></div>
+@{
+    ViewData["Title"] = "Güvenlik Paneli";
+}
+
+<section class="toolkit-page">
+    <div class="toolkit-hero">
+        <div>
+            <span class="eyebrow"><span class="eyebrow-dot"></span> GELİŞTİRİCİ ARAÇLARI</span>
+            <h1>Security &amp; Data <span>Toolkit</span></h1>
+            <p>Verilerini güvenle dönüştür, formatları anında doğrula ve tüm işlemleri tek panelden takip et.</p>
+        </div>
+        <div class="security-badge"><span class="shield-icon">✓</span><div><strong>Tarayıcı içi güvenli</strong><small>Verileriniz cihazınızdan çıkmaz</small></div></div>
+    </div>
+
+    <nav class="tool-tabs" aria-label="Toolkit bölümleri" role="tablist">
+        <button class="tool-tab active" type="button" role="tab" aria-selected="true" data-target="security-panel"><span class="tab-icon">⌁</span><span><strong>Veri Güvenliği</strong><small>SHA-256 şifreleme</small></span></button>
+        <button class="tool-tab" type="button" role="tab" aria-selected="false" data-target="validation-panel"><span class="tab-icon">✓</span><span><strong>Format Doğrulama</strong><small>E-posta &amp; telefon</small></span></button>
+        <button class="tool-tab" type="button" role="tab" aria-selected="false" data-target="logs-panel"><span class="tab-icon">≡</span><span><strong>Sistem Günlüğü</strong><small>İşlem geçmişi</small><em id="log-count">0</em></span></button>
+    </nav>
+
+    <div class="tool-panel active" id="security-panel" role="tabpanel">
+        <div class="panel-intro"><div class="feature-icon purple">⌁</div><div><h2>SHA-256 Veri Şifreleme</h2><p>Metninizi güçlü SHA-256 algoritmasıyla tarayıcınızda hash'leyin. Girilen veri sunucuya gönderilmez.</p></div></div>
+        <label class="field-label" for="hash-input">Şifrelenecek metin</label>
+        <div class="input-with-action"><input id="hash-input" type="text" placeholder="Bir metin, parola veya veri girin..." autocomplete="off"><button id="hash-button" class="primary-button" type="button"><span>✦</span> Şifrele</button></div>
+        <div class="result-box" id="hash-result" aria-live="polite"><div class="empty-result"><span>⌁</span><p>SHA-256 çıktınız burada görünecek</p></div></div>
+        <div class="privacy-note"><span>◉</span> Hash işlemi Web Crypto API ile yerel olarak gerçekleştirilir.</div>
+    </div>
+
+    <div class="tool-panel" id="validation-panel" role="tabpanel" hidden>
+        <div class="panel-intro"><div class="feature-icon green">✓</div><div><h2>Format Doğrulama</h2><p>E-posta veya telefon bilgisinin beklenen formata uygunluğunu hızlıca kontrol edin.</p></div></div>
+        <label class="field-label" for="validation-input">Kontrol edilecek değer</label>
+        <div class="validation-row"><input id="validation-input" type="text" placeholder="ornek@eposta.com veya +90 555 123 45 67" autocomplete="off"><select id="validation-type" aria-label="Doğrulama türü"><option value="email">E-posta</option><option value="phone">Telefon</option></select><button id="validate-button" class="primary-button green-button" type="button">Doğrula</button></div>
+        <div class="validation-result" id="validation-result" aria-live="polite"><span class="status-dot"></span><span>Bir değer girip doğrulamayı başlatın.</span></div>
+        <div class="format-hints"><span><b>E-posta:</b> ad@domain.com</span><span><b>Telefon:</b> 10–15 rakam, ülke kodu opsiyonel</span></div>
+    </div>
+
+    <div class="tool-panel" id="logs-panel" role="tabpanel" hidden>
+        <div class="panel-intro log-intro"><div class="feature-icon amber">≡</div><div><h2>Sistem Günlüğü</h2><p>Bu oturumda gerçekleştirilen tüm işlemler tarih ve saat bilgisiyle listelenir.</p></div><button id="download-logs" class="secondary-button" type="button">↓ Günlüğü İndir</button></div>
+        <div class="log-console" id="log-list"><div class="empty-log">Henüz kaydedilmiş bir işlem yok.</div></div>
+        <div class="log-footer"><span><i class="online-dot"></i> Günlük aktif</span><button id="clear-logs" class="text-button" type="button">Günlüğü temizle</button></div>
+    </div>
+</section>
