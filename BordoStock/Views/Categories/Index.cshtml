@@ -1,0 +1,35 @@
+@model List<BordoStock.Models.Category>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="page-header">
+    <h2>Kategori Yönetimi</h2>
+    <a asp-action="Create" class="btn-primary">Yeni Kategori</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn-secondary">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

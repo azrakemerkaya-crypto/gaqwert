@@ -1,0 +1,37 @@
+@model List<BordoStock.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Tedarikçiler";
+}
+
+<div class="page-header">
+    <h2>Tedarikçi Listesi</h2>
+    <a asp-action="Create" class="btn-primary">Yeni Tedarikçi</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Firma</th>
+            <th>Yetkili</th>
+            <th>Telefon</th>
+            <th>E-posta</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CompanyName</td>
+                <td>@item.ContactName</td>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn-secondary">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,34 @@
+@model List<BordoStock.Models.StockMovement>
+
+@{
+    ViewData["Title"] = "Stok Hareketleri";
+}
+
+<div class="page-header">
+    <h2>Stok Hareketleri</h2>
+    <a asp-action="Create" class="btn-primary">Yeni Hareket</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Tür</th>
+            <th>Depo</th>
+            <th>Miktar</th>
+            <th>Tarih</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>@item.MovementType</td>
+                <td>@item.Warehouse?.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.MovementDate.ToString("dd.MM.yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

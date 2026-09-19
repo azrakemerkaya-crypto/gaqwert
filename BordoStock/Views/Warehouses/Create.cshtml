@@ -1,0 +1,22 @@
+@model BordoStock.Models.Warehouse
+
+@{
+    ViewData["Title"] = "Depo Ekle";
+}
+
+<div class="form-container">
+    <h2>Yeni Depo</h2>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Kaydet</button>
+    </form>
+</div>
