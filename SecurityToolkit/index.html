@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security & Data Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <span class="eyebrow">SECURITY &amp; DATA TOOLKIT</span>
+        <h1>Geliştirici Güvenlik Paneli</h1>
+        <p>Şifrele, doğrula ve işlemlerini tek bir bağımsız web arayüzünde takip et.</p>
+      </div>
+      <span class="local-status"><i></i> Tarayıcıda yerel çalışır</span>
+    </header>
+
+    <nav class="tabs" aria-label="Araçlar">
+      <button class="tab active" data-target="hash-panel">🔐 Veri Güvenliği</button>
+      <button class="tab" data-target="validate-panel">✓ Format Doğrulama</button>
+      <button class="tab" data-target="logs-panel">≡ Sistem Günlüğü <b id="log-count">0</b></button>
+    </nav>
+
+    <section class="panel active" id="hash-panel">
+      <h2>SHA-256 Veri Şifreleme</h2>
+      <p class="description">Metninizi Web Crypto API kullanarak tarayıcınızda güvenli şekilde hash'leyin.</p>
+      <label for="hash-input">Şifrelenecek metin</label>
+      <div class="form-row"><input id="hash-input" placeholder="Bir metin girin..."><button class="primary" id="hash-button">Şifrele</button></div>
+      <div class="result" id="hash-result">SHA-256 çıktısı burada görünecek.</div>
+    </section>
+
+    <section class="panel" id="validate-panel" hidden>
+      <h2>Format Doğrulama</h2>
+      <p class="description">E-posta veya telefon bilgisinin formatını regex ile kontrol edin.</p>
+      <label for="validate-input">Kontrol edilecek değer</label>
+      <div class="form-row"><input id="validate-input" placeholder="ornek@eposta.com veya +90 555 123 45 67"><select id="validate-type"><option value="email">E-posta</option><option value="phone">Telefon</option></select><button class="success" id="validate-button">Doğrula</button></div>
+      <div class="validation-result neutral" id="validation-result">Bir değer girip doğrulamayı başlatın.</div>
+    </section>
+
+    <section class="panel" id="logs-panel" hidden>
+      <div class="panel-title"><div><h2>Sistem Günlüğü</h2><p class="description">Bu oturumdaki işlemler tarih ve saat bilgisiyle listelenir.</p></div><button class="secondary" id="download-logs">↓ Günlüğü İndir</button></div>
+      <div class="logs" id="log-list"><div class="empty">Henüz kaydedilmiş işlem yok.</div></div>
+      <button class="clear" id="clear-logs">Günlüğü temizle</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
