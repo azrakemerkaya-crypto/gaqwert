@@ -1,0 +1,48 @@
+@model List<BordoStock.Models.StockMovement>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-grid">
+    <div class="stat-card">
+        <span class="label">Toplam Ürün</span>
+        <h3>@ViewBag.TotalProducts</h3>
+    </div>
+
+    <div class="stat-card">
+        <span class="label">Toplam Stok</span>
+        <h3>@ViewBag.TotalStock</h3>
+    </div>
+
+    <div class="stat-card">
+        <span class="label">Kritik Stok</span>
+        <h3>@ViewBag.LowStockProducts</h3>
+    </div>
+</div>
+
+<div class="panel">
+    <h3>Son Stok Hareketleri</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Tür</th>
+                <th>Miktar</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product?.Name</td>
+                    <td>@item.MovementType</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.MovementDate.ToString("dd.MM.yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

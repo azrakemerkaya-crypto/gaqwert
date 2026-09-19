@@ -1,0 +1,50 @@
+@model BordoStock.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<div class="form-container">
+    <h2>Ürün Düzenle</h2>
+
+    <form asp-action="Edit" method="post">
+        <input asp-for="Id" type="hidden" />
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Code"></label>
+            <input asp-for="Code" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PurchasePrice"></label>
+            <input asp-for="PurchasePrice" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SalePrice"></label>
+            <input asp-for="SalePrice" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StockQuantity"></label>
+            <input asp-for="StockQuantity" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="MinStockLevel"></label>
+            <input asp-for="MinStockLevel" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Güncelle</button>
+    </form>
+</div>

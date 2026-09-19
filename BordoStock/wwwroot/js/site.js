@@ -1,0 +1,1 @@
+console.log("BordoStock başlatıldı...");

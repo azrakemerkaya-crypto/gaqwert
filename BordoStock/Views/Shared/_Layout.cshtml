@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BordoStock</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">BORDOSTOCK</div>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a asp-controller="Products" asp-action="Index">Ürünler</a>
+            <a href="#">Kategoriler</a>
+            <a href="#">Tedarikçiler</a>
+            <a href="#">Depolar</a>
+            <a href="#">Stok Hareketleri</a>
+            <a href="#">Raporlar</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <header class="topbar">
+            <h1>@ViewData["Title"]</h1>
+            <div class="user-box">Admin</div>
+        </header>
+
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js"></script>
+</body>
+</html>
